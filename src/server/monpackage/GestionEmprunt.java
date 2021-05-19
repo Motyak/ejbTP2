@@ -25,6 +25,7 @@ public class GestionEmprunt implements IGestionEmprunt
         livre.setDispo(0);
 
         this.emprunteur.incNbLivresEmp();
+        this.em.merge(emprunteur);
 
         LivreEmp emp = new LivreEmp(isbn, livre.getTitre(), this.emprunteur.getNum());
         this.em.persist(emp);
@@ -37,6 +38,7 @@ public class GestionEmprunt implements IGestionEmprunt
         livre.setDispo(1);
 
         this.emprunteur.decNbLivresEmp();
+        this.em.merge(emprunteur);
 
         LivreEmp emp = this.em.find(LivreEmp.class, isbn);
         this.em.remove(emp);
