@@ -3,10 +3,13 @@ package monpackage;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import java.io.Serializable;
 
 @Entity
 @Table(name="livre")
-public class Livre
+@NamedQuery(name="Livre.findAll", query="SELECT l FROM Livre l where l.dispo=1")
+public class Livre implements Serializable
 {
     @Id 
     private String isbn;

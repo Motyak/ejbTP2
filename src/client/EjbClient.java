@@ -1,10 +1,10 @@
-import monpackage.IGestionEmprunt;
+import monpackage.IInfosLivre;
+import monpackage.Livre;
 
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.Scanner;
 
 // $ javac.exe -d .\classes -cp .\EJB .\src\client\EjbClient.java
 // classes$ java EjbClient
@@ -15,17 +15,11 @@ public class EjbClient
         Properties prop = new Properties();
         prop.put(Context.PROVIDER_URL, "localhost:8080/ejb_archive");
         Context context = new InitialContext(prop);
-        IGestionEmprunt api = (IGestionEmprunt)context.lookup("monpackage.IGestionEmprunt");
-        Scanner scanner = new Scanner(System.in);
+        IInfosLivre api = (IInfosLivre)context.lookup("monpackage.IInfosLivre");
         
-        api.creerEmprunt(33); //tata
+        System.out.println(api.getTitre("333") + "\n");
 
-        System.out.println("Press enter to take out book");
-        scanner.nextLine();
-        api.emprunterLivre("333");
-        
-        System.out.println("Press enter to take in book");
-        scanner.nextLine();
-        api.rendreLivre("333");
+        for(Livre l : api.getLivres())
+            System.out.println(l.getIsbn() + ";" + l.getTitre());
     }
 }
