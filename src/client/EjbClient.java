@@ -7,7 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 // $ javac.exe -d .\classes -cp .\EJB .\src\client\EjbClient.java
-// classes$ java EjbClient
+// classes$ java.exe -classpath "$env:Classpath;..\EJB" EjbClient
 public class EjbClient
 {
     public static void main(String[] args) throws NamingException
