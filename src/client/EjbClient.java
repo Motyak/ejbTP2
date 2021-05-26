@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.util.List;
 
 // $ javac.exe -d .\classes -cp .\EJB .\src\client\EjbClient.java
 // classes$ java.exe -classpath "$env:Classpath;..\EJB" EjbClient
@@ -18,8 +19,8 @@ public class EjbClient
         IInfosLivre api = (IInfosLivre)context.lookup("monpackage.IInfosLivre");
         
         System.out.println(api.getTitre("333") + "\n");
-
-        for(Livre l : api.getLivres())
+        List<Livre> livres = api.getLivres();
+        for(Livre l : livres)
             System.out.println(l.getIsbn() + ";" + l.getTitre());
     }
 }

@@ -3,6 +3,7 @@ package monpackage;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
@@ -19,8 +20,9 @@ public class InfosLivre implements IInfosLivre
     }
 
     @Override
-    public Livre[] getLivres()
+    public List<Livre> getLivres()
     {
-        return (Livre[])this.em.createNamedQuery("Livre.findAll").getResultList().toArray();
+        TypedQuery<Livre> query = this.em.createNamedQuery("Livre.findAll", Livre.class);
+        return query.getResultList();
     }
 }

@@ -1,10 +1,11 @@
 package monpackage;
 
 import javax.ejb.Remote;
+import java.util.List;
 
 @Remote
 public interface IInfosLivre
 {
     public String getTitre(String isbn);
-    public Livre[] getLivres();
+    public List<Livre> getLivres();
 }
