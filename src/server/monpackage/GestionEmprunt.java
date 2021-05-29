@@ -1,8 +1,12 @@
 package monpackage;
 
 import javax.ejb.Stateful;
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 @Stateful
 public class GestionEmprunt implements IGestionEmprunt
@@ -11,6 +15,9 @@ public class GestionEmprunt implements IGestionEmprunt
     private EntityManager em;
 
     private Emprunteur emprunteur;
+
+    @Resource(name="NB_MAX_LIVRES_EMP")
+    private Integer NB_MAX_LIVRES_EMP;
 
     @Override
     public void creerEmprunt(int numEmprunteur)
@@ -23,7 +30,7 @@ public class GestionEmprunt implements IGestionEmprunt
     {
         Livre livre = this.em.find(Livre.class, isbn);
 
-        if(this.emprunteur.getNbLivresEmp() > 2)
+        if(this.emprunteur.getNbLivresEmp() > this.NB_MAX_LIVRES_EMP - 1)
             throw new NbMaxEmpAtteint();
 
         if(livre.getDispo() == 0)
