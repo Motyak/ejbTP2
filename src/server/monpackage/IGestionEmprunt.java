@@ -6,7 +6,7 @@ import javax.ejb.Remote;
 public interface IGestionEmprunt
 {
     public void creerEmprunt(int numEmprunteur);
-    public void emprunterLivre(String isbn);
+    public void emprunterLivre(String isbn) throws NbMaxEmpAtteint, LivreNonDisponible;
     public void rendreLivre(String isbn);
 
     // public void ajouterLivre(String isbn, String titre);

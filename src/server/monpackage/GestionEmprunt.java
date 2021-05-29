@@ -19,16 +19,22 @@ public class GestionEmprunt implements IGestionEmprunt
     } 
 
     @Override
-    public void emprunterLivre(String isbn)
+    public void emprunterLivre(String isbn) throws NbMaxEmpAtteint, LivreNonDisponible
     {
         Livre livre = this.em.find(Livre.class, isbn);
+
+        if(this.emprunteur.getNbLivresEmp() > 2)
+            throw new NbMaxEmpAtteint();
+
+        if(livre.getDispo() == 0)
+            throw new LivreNonDisponible();
+
         livre.setDispo(0);
+        LivreEmp emp = new LivreEmp(isbn, livre.getTitre(), this.emprunteur.getNum());
+        this.em.persist(emp);
 
         this.emprunteur.incNbLivresEmp();
         this.em.merge(emprunteur);
-
-        LivreEmp emp = new LivreEmp(isbn, livre.getTitre(), this.emprunteur.getNum());
-        this.em.persist(emp);
     }
 
     @Override

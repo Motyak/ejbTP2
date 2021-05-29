@@ -41,4 +41,9 @@ public class Emprunteur
     {
         return this.numemp;
     }
+
+    public int getNbLivresEmp()
+    {
+        return this.nblivresemp;
+    }
 }

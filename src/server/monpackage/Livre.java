@@ -30,6 +30,11 @@ public class Livre implements Serializable
         this.dispo = 1;
     }
 
+    public int getDispo()
+    {
+        return this.dispo;
+    }
+
     public void setDispo(int dispo)
     {
         this.dispo = dispo;

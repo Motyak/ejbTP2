@@ -1,5 +1,4 @@
-import monpackage.IInfosLivre;
-import monpackage.Livre;
+import monpackage.IGestionEmprunt;
 
 import java.util.Properties;
 import javax.naming.Context;
@@ -11,16 +10,23 @@ import java.util.List;
 // classes$ java.exe -classpath "$env:Classpath;..\EJB" EjbClient
 public class EjbClient
 {
-    public static void main(String[] args) throws NamingException
+    public static void main(String[] args) throws Exception
     {
         Properties prop = new Properties();
         prop.put(Context.PROVIDER_URL, "localhost:8080/ejb_archive");
         Context context = new InitialContext(prop);
-        IInfosLivre api = (IInfosLivre)context.lookup("monpackage.IInfosLivre");
+        IGestionEmprunt api = (IGestionEmprunt)context.lookup("monpackage.IGestionEmprunt");
         
-        System.out.println(api.getTitre("333") + "\n");
-        List<Livre> livres = api.getLivres();
-        for(Livre l : livres)
-            System.out.println(l.getIsbn() + ";" + l.getTitre());
+        /* erreur emprunteur n'existe pas */
+        api.creerEmprunt(10000);
+        api.emprunterLivre("K05");
+
+        /* erreur livre non dispo */
+        api.creerEmprunt(11);
+        api.emprunterLivre("159");
+
+        /* erreur emprunteur atteint nb max emprunts */
+        api.creerEmprunt(20);
+        api.emprunterLivre("K05");
     }
 }
